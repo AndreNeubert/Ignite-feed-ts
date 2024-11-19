@@ -1,35 +1,71 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { Post } from "./components/Post/Post";
+import { Header } from "./components/Header/Header";
+import { Sidebar } from "./components/Sidebar/Sidebar";
 
-function App() {
-  const [count, setCount] = useState(0)
+import styles from "./App.module.css";
 
+import "./global.css";
+
+const posts = [
+  {
+    id: 1,
+    author: {
+      avatarUrl: "https://github.com/andreneubert.png",
+      name: "André Neubert",
+      role: "Web Developer",
+    },
+    publishedAt: new Date("2024-11-09 13:46:23"),
+    content: [
+      { type: "paragraph", content: "Fala galeraa 👋" },
+      {
+        type: "paragraph",
+        content:
+          "Acabei de subir mais um projeto no meu portifa. É um projeto que fiz no NLW Return, evento da Rocketseat. O nome do projeto é",
+      },
+      { type: "paragraph", content: "DoctorCare 🚀" },
+      { type: "link", content: "jane.design/doctorcare" },
+    ],
+  },
+  {
+    id: 2,
+    author: {
+      avatarUrl: "https://github.com/diego3g.png",
+      name: "Diego Fernandes",
+      role: "CTO @Rocketseat",
+    },
+    publishedAt: new Date("2024-11-17 12:00:00"),
+    content: [
+      { type: "paragraph", content: "Fala galeraa 👋" },
+      {
+        type: "paragraph",
+        content:
+          "Acabei de subir mais um projeto no meu portifa. É um projeto que fiz no NLW Return, evento da Rocketseat. O nome do projeto é",
+      },
+      { type: "paragraph", content: "DoctorCare 🚀" },
+      { type: "link", content: "jane.design/doctorcare" },
+    ],
+  },
+];
+export function App() {
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    <div>
+      <Header />
 
-export default App
+      <div className={styles.wrapper}>
+        <Sidebar />
+        <main>
+          {posts.map((post) => {
+            return (
+              <Post
+                key={post.id}
+                author={post.author}
+                content={post.content}
+                publishedAt={post.publishedAt}
+              />
+            );
+          })}
+        </main>
+      </div>
+    </div>
+  );
+}
